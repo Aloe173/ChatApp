@@ -10,7 +10,7 @@ interface IRole {
 
     fun update(role: Role): Role?
 
-    fun addRight(roleId: Long, right: Right): Role?
+    fun addRight(roleId: Int, right: Right): Role?
 
-    fun removeRight(roleId: Long, right: Right): Role?
+    fun removeRight(roleId: Int, right: Right): Role?
 }
