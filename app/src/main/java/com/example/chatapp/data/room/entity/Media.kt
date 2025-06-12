@@ -6,22 +6,22 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "accounts",
+    tableName = "media",
     foreignKeys = [
         ForeignKey(
-            entity = User::class,
+            entity = Message::class,
             parentColumns = ["id"],
-            childColumns = ["id_user"]
+            childColumns = ["id_message"]
         )
     ]
 )
-data class Account(
+data class Media(
     @PrimaryKey
     val id: Int,
-    @ColumnInfo(name = "id_user")
-    val idUser: Int,
+    @ColumnInfo(name = "id_message")
+    val idMessage: Int,
     @ColumnInfo
-    val token: String,
+    val type: String,
     @ColumnInfo
-    val active: Boolean
+    val deleted: Boolean
 )

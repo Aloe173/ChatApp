@@ -12,6 +12,11 @@ import androidx.room.PrimaryKey
             entity = Role::class,
             parentColumns = ["id"],
             childColumns = ["id_role"]
+        ),
+        ForeignKey(
+            entity = Permission::class,
+            parentColumns = ["id"],
+            childColumns = ["id_permission"]
         )
     ]
 )
@@ -20,8 +25,8 @@ data class Right(
     val id: Int,
     @ColumnInfo(name = "id_role")
     val idRole: Int,
-    @ColumnInfo
-    val name: String,
+    @ColumnInfo(name = "id_permission")
+    val idPermission: Int,
     @ColumnInfo
     val deleted: Boolean
 )

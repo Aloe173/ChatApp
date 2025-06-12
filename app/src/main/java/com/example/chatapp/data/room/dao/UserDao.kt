@@ -8,7 +8,7 @@ import androidx.room.Update
 import com.example.chatapp.data.room.entity.User
 
 @Dao
-interface UserDao {
+interface IUserDao {
 
     @Insert
     suspend fun insert(user: User)
