@@ -7,5 +7,3 @@ interface IChatRepository {
 
     fun delete(chatId: Int): Boolean
 }
-
-
