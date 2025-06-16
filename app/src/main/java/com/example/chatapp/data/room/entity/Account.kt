@@ -23,5 +23,7 @@ data class Account(
     @ColumnInfo
     val token: String,
     @ColumnInfo
-    val active: Boolean
+    val active: Boolean,
+    @ColumnInfo
+    val ip: String
 )
