@@ -70,7 +70,7 @@ dependencies {
     implementation(libs.ktor.client.websockets)
     // Room components
     implementation(libs.androidx.room.runtime)
-    implementation(libs.room.compiler)
+    ksp(libs.room.compiler)
     implementation(libs.androidx.room.ktx)
     // Navigation
     // Jetpack Compose integration
