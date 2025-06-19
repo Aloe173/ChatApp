@@ -1,5 +1,6 @@
 package com.example.chatapp.data.room.dao
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
@@ -7,6 +8,7 @@ import androidx.room.Update
 import com.example.chatapp.data.room.entity.ChatMember
 import com.example.chatapp.data.room.entity.Message
 
+@Dao
 interface IMessageDao {
     @Insert
     suspend fun insert(message: Message)
