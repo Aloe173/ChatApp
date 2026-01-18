@@ -6,11 +6,15 @@ import com.example.chatapp.domain.model.User
 interface IUser {
     fun create(user: User): User
 
-    fun delete(userId: Int): Boolean
+    fun getNextId(): Int
 
-    fun updateName(userId: Int, newName: String): Boolean
+    fun delete(user: User): User
+
+    fun updateName(userId: Int, newName: String): User
 
     fun updatePassword(userId: Int, newPassword: String): Boolean
 
     fun updatePic(userId: Int, newPic: Picture): Boolean
+
+    fun getUserById(userId: Int): Any
 }
