@@ -9,7 +9,7 @@ class DeleteUserUseCase(
 
     sealed class Result {
         data class Success(val user: User) : Result()
-        data class Error(val user: String) : Result()
+        data class Error(val message: String) : Result()
     }
 
     operator fun invoke(params: User): Result {

@@ -1,53 +1,38 @@
 package com.example.chatapp.domain.usecase
 
-import androidx.room.util.copy
 import com.example.chatapp.domain.model.User
 import com.example.chatapp.domain.repository.IUser
 
 class UpdateUserNameUseCase(
-    private val userRepository: IUser
+    private val userRepository: IUser,
+    private val newName: String
 ) {
 
     data class Params(
-        val userId: Int,
-        val newName: String
-    )
+        val userId: Int
+            )
 
     sealed class Result {
         data class Success(val user: User) : Result()
         data class Error(val message: String) : Result()
-        data object UserNotFound : Result()
-        data object NoChangesDetected : Result()
     }
 
-    suspend operator fun invoke(params: Params): Result {
+    operator fun invoke(params: Params): Result {
 
         val existingUser = userRepository.getUserById(params.userId)
-        if (existingUser == null) {
-            return Result.UserNotFound
-        }
 
-        if (existingUser.isDeleted) {
-            return Result.Error("Cannot update deleted user")
-        }
-
-        if (existingUser.name == params.newName) {
-            return Result.NoChangesDetected
-        }
-
-
-        val updatedUser = existingUser.copy(
-            name = params.newName
+        val updatedUserName = existingUser.copy(
+            name = newName
         )
 
         try {
 
-            val savedUser = userRepository.updateName(updatedUser)
+            val savedUserName = userRepository.updateName(updatedUserName)
 
-            return Result.Success(savedUser)
+            return Result.Success(savedUserName)
 
         } catch (e: Exception) {
-            return Result.Error("Failed to update user name: ${e.message}")
+            return Result.Error("Не удалось обновить имя: ${e.message}")
         }
     }
 }

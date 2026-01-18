@@ -9,14 +9,14 @@ class CreateUserUseCase(
 
     sealed class Result {
         data class Success(val user: User) : Result()
-        data class Error(val user: String) : Result()
+        data class Error(val message: String) : Result()
     }
 
     operator fun invoke(params: User): Result {
 
         try {
             val user = User(
-                id = userRepository.getNextId(),
+                id = params.id,
                 name = params.name,
                 login = params.login,
                 passwordHash = params.passwordHash,
