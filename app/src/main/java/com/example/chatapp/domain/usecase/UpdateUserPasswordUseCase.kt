@@ -1,18 +1,38 @@
 package com.example.chatapp.domain.usecase
 
+import com.example.chatapp.domain.model.User
 import com.example.chatapp.domain.repository.IUser
 
-class UpdateUserPasswordUseCase(private val userRepository: IUser) {
-    operator fun invoke(userId: Int, newPassword: String): Result<Boolean> {
-        return try {
-            val isUpdated = userRepository.updatePassword(userId, newPassword)
-            if (isUpdated) {
-                Result.success(true)
-            } else {
-                Result.failure(Exception("Обновление пароля не удалось"))
-            }
+class UpdateUserPasswordUseCase(
+    private val userRepository: IUser,
+    private val newPassword: String
+) {
+
+    data class Params(
+        val userId: Int
+    )
+
+    sealed class Result {
+        data class Success(val user: User) : Result()
+        data class Error(val message: String) : Result()
+    }
+
+    operator fun invoke(params: Params): Result {
+
+        val existingUser = userRepository.getUserById(params.userId)
+
+        val updatedUserPass = existingUser.copy(
+            name = newPassword
+        )
+
+        try {
+
+            val savedUserPass = userRepository.updatePassword(updatedUserPass)
+
+            return Result.Success(savedUserPass)
+
         } catch (e: Exception) {
-            Result.failure(e)
+            return Result.Error("Не удалось обновить пароль: ${e.message}")
         }
     }
 }
