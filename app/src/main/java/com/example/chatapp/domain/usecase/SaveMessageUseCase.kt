@@ -6,12 +6,43 @@ import com.example.chatapp.domain.repository.IMessage
 class SaveMessageUseCase(
     private val messageRepository: IMessage
 ) {
-    operator fun invoke(message: Message): Result<Message> {
-        return try {
-            val savedMessage = messageRepository.save(message)
-            Result.success(savedMessage)
-        } catch (e: Exception) {
-            Result.failure(e)
+
+    sealed class Result {
+        data class Success(val message: Message) : Result()
+        data class Error(val message: String) : Result()
+        data object ValidationError : Result()
+    }
+
+    operator fun invoke(params: Message): Result {
+
+        if (params.value.isBlank()) {
+            return Result.ValidationError
         }
+
+        if (params.value.length > MAX_MESSAGE_LENGTH) {
+            return Result.Error("Слишком длинное сообщение")
+        }
+
+        try {
+            val message = Message(
+                id = params.id,
+                value = params.value,
+                type = params.type,
+                createdAt = params.createdAt,
+                chatId = params.chatId,
+                sender = params.sender,
+                isCurrentUser = params.isCurrentUser,
+            )
+
+            val savedMessage = messageRepository.save(message)
+
+            return Result.Success(savedMessage)
+        } catch (e: Exception) {
+            return Result.Error("Не удалось отправить сообщение: ${e.message}")
+        }
+    }
+
+    companion object {
+        const val MAX_MESSAGE_LENGTH = 1000
     }
 }

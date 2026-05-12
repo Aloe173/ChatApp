@@ -5,9 +5,10 @@ import com.example.chatapp.domain.model.Message
 interface IMessage {
     fun save(message: Message): Message
 
-    fun delete(messageId: Int): Boolean
+    fun delete(message: Message): Message
 
     fun update(message: Message): Message?
 
     fun search(query: String): List<Message>
+
 }
