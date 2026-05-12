@@ -18,10 +18,7 @@ class CreateUserUseCase(
             val user = User(
                 id = params.id,
                 name = params.name,
-                login = params.login,
-                passwordHash = params.passwordHash,
-                isAdmin = params.isAdmin,
-                isDeleted = false
+                login = params.login
             )
 
             val createdUser = userRepository.create(user)

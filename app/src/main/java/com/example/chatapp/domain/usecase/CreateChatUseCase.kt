@@ -18,9 +18,10 @@ class CreateChatUseCase(
             val chat = Chat(
                 id = params.id,
                 name = params.name,
-                ownerId = params.ownerId,
-                createdAt = params.createdAt,
-                isDeleted = false
+                type = params.type,
+                participants = params.participants,
+                lastMessage = params.lastMessage,
+                unreadCount = params.unreadCount,
             )
 
             val createdChat = chatRepository.create(chat)

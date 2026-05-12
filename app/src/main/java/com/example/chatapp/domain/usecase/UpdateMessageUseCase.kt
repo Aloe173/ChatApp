@@ -27,14 +27,12 @@ class UpdateMessageUseCase(
         try {
             val message = Message(
                 id = params.id,
-                chatMemberId = params.chatMemberId,
                 value = newValue,
-                isUpdated = params.isUpdated,
                 type = params.type,
                 createdAt = params.createdAt,
-                viewedAt = params.viewedAt,
-                isDeleted = params.isDeleted,
-                deletedAt = params.deletedAt
+                chatId = params.chatId,
+                sender = params.sender,
+                isCurrentUser = params.isCurrentUser,
             )
 
             val savedMessage = messageRepository.save(message)

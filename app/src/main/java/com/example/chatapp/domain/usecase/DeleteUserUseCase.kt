@@ -18,10 +18,7 @@ class DeleteUserUseCase(
             val user = User(
                 id = params.id,
                 name = params.name,
-                login = params.login,
-                passwordHash = params.passwordHash,
-                isAdmin = params.isAdmin,
-                isDeleted = true
+                login = params.login
             )
 
             val deletedUser = userRepository.delete(user)

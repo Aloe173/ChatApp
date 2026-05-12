@@ -14,5 +14,7 @@ interface IUser {
 
     fun updatePic(userId: Int, newPic: Picture): Boolean
 
-    fun getUserById(userId: Int): User
+    fun getUser(userId: Int): User
+
+    fun getUser()
 }

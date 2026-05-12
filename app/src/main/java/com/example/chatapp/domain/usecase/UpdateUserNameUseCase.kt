@@ -19,7 +19,7 @@ class UpdateUserNameUseCase(
 
     operator fun invoke(params: Params): Result {
 
-        val existingUser = userRepository.getUserById(params.userId)
+        val existingUser = userRepository.getUser(params.userId)
 
         val updatedUserName = existingUser.copy(
             name = newName

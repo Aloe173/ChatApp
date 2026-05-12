@@ -17,14 +17,12 @@ class DeleteMessageUseCase(
         try {
             val message = Message(
                 id = params.id,
-                chatMemberId = params.chatMemberId,
                 value = params.value,
-                isUpdated = params.isUpdated,
                 type = params.type,
                 createdAt = params.createdAt,
-                viewedAt = params.viewedAt,
-                isDeleted = true,
-                deletedAt = params.deletedAt
+                chatId = params.chatId,
+                sender = params.sender,
+                isCurrentUser = params.isCurrentUser,
             )
 
             val deletedMessage = messageRepository.delete(message)
